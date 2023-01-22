@@ -10,8 +10,6 @@ async function run() {
         const durationSeconds = parseInt(core.getInput('duration-seconds', {required: false}));
         const exportVariables = core.getBooleanInput('export-variables', {required: false});
 
-        console.log({roleArn, audience, stsRegion, roleSessionName, durationSeconds, exportVariables});
-
         const id_token = await core.getIDToken(audience);
 
         let stsOptions = {};

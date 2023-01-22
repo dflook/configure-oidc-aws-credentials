@@ -5,9 +5,6 @@ See [About security hardening with OpenID Connect](https://docs.github.com/en/ac
 
 The GitHub identity provider must be configured in you AWS account, and the role you want to assume must have the correct trust policy.
 
-You can see GitHubs [instructions here](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services), 
-but I would suggest choosing your own audience string.
-
 ## Inputs
 
 * `role-arn`
@@ -78,6 +75,39 @@ but I would suggest choosing your own audience string.
 
 ## Example usage
 
+### AWS Configuration
+
+These examples would need an IAM Identity provider configured for GitHub in AWS account `123456789000`.
+It should be an OpenID Connect provider with url `https://token.actions.githubusercontent.com`.
+
+Assuming the actions run in this repo, the GitHub provider will use `https://github.com/dflook` as the default audience.
+To match this, the audience has been set to `https://github.com/dflook` in the IAM Identity provider for `https://token.actions.githubusercontent.com`
+
+The role `MyRole` and `MySecondRole` have the trust policy:
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "",
+            "Effect": "Allow",
+            "Principal": {
+                "Federated": "arn:aws:iam::123456789000:oidc-provider/token.actions.githubusercontent.com"
+            },
+            "Action": "sts:AssumeRoleWithWebIdentity",
+            "Condition": {
+                "StringEquals": {
+                    "token.actions.githubusercontent.com:aud": "https://github.com/dflook"
+                },
+                "StringLike": {
+                    "token.actions.githubusercontent.com:sub": "repo:dflook/configure-oidc-aws-credentials:*"
+                }
+            }
+        }
+    ]
+}
+```
+
 ### Creating and using a session
 
 This example fetches and uses temporary credentials using OIDC and exports them as environment variables
@@ -101,7 +131,7 @@ jobs:
         run: aws s3 ls
 ```
 
-## Using multiple sessions
+### Using multiple sessions
 
 This example creates sessions for two different roles.
 A subsequent step sets the AWS environment variables to use one of the roles.
