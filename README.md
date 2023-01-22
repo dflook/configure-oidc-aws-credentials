@@ -112,7 +112,7 @@ on: [push]
 jobs:
   multiple_sessions:
     runs-on: ubuntu-latest
-    name: Export AWS variables with a temporary session
+    name: Use multiple role sessions
     steps:
       - name: Fetch MyRole credentials
         uses: dflook/configure-oidc-aws-credentials@v1
