@@ -1,0 +1,21 @@
+env:
+  node: true
+  commonjs: true
+  es2022: true
+extends: eslint:recommended
+overrides: []
+parserOptions:
+  ecmaVersion: 2022
+rules:
+  indent:
+    - error
+    - 4
+  linebreak-style:
+    - error
+    - unix
+  quotes:
+    - error
+    - single
+  semi:
+    - error
+    - always

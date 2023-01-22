@@ -1,0 +1,36 @@
+name: configure-oidc-aws-credentials
+description: 'Fetch temporary AWS session credentials using OIDC'
+inputs:
+  role-arn:
+    description: 'ARN of the role to assume'
+    required: true
+  sts-region:
+    description: 'The region to use the STS regional endpoint in. If not set, will use the global endpoint.'
+    required: false
+  audience:
+    description: 'The OIDC audience to use. The default is set by the GitHub OIDC provider if not set here.'
+    required: false
+  role-session-name:
+    description: 'A name to give the role session'
+    required: false
+    default: 'GitHubActions'
+  duration-seconds:
+    description: 'Duration of the role session'
+    required: false
+    default: '3600'
+  export-variables:
+    description: 'Set to true to export AWS environment variables'
+    required: false
+    default: 'false'
+outputs:
+  aws-access-key-id:
+    description: 'The access key id for the temporary credentials'
+  aws-secret-access-key:
+    description: 'The secret access key for the temporary credentials'
+  aws-session-token:
+    description: 'The session token for the temporary credentials'
+  expiration:
+    description: 'The date on which the credentials expire'
+runs:
+  using: 'node16'
+  main: 'dist/index.js'

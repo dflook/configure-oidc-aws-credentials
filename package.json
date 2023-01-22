@@ -1,0 +1,25 @@
+{
+  "name": "configure-oidc-aws-credentials",
+  "version": "1.0.0",
+  "description": "Fetch temporary AWS session credentials using OIDC",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint index.js",
+    "build": "ncc build index.js -o dist"
+  },
+  "keywords": [
+    "GitHub",
+    "Actions",
+    "AWS"
+  ],
+  "author": "Daniel Flook (daniel@flook.org)",
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "^1.10.0",
+    "@aws-sdk/client-sts": "^3.254.0"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.36.0",
+    "eslint": "^8.32.0"
+  }
+}
