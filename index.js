@@ -3,7 +3,7 @@ const {STSClient, AssumeRoleWithWebIdentityCommand} = require('@aws-sdk/client-s
 
 async function run() {
     try {
-        const roleArn = core.getInput('role-arn', {required: false});
+        const roleArn = core.getInput('role-arn', {required: true});
         const audience = core.getInput('audience', {required: false});
         const stsRegion = core.getInput('sts-region', {required: false});
         const roleSessionName = core.getInput('role-session-name', {required: false});
