@@ -116,6 +116,10 @@ for the next step.
 ```yaml
 on: [push]
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   simple_example:
     runs-on: ubuntu-latest
@@ -138,6 +142,10 @@ A subsequent step sets the AWS environment variables to use one of the roles.
 
 ```yaml
 on: [push]
+
+permissions:
+  id-token: write
+  contents: read
 
 jobs:
   multiple_sessions:
